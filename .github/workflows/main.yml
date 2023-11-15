@@ -32,7 +32,8 @@ jobs:
         run: |
           source venv/bin/activate && pytest tests/unit
       - name: Create archive of dependencies
-        run: cd venv/lib/python3.11/site-packages && zip -r9 ../../../../api.zip .
+        run: |
+          cd src && zip -r ../api.zip . && cd ..
       - name: Add api files to zip
         run: cd src && zip -g ../api.zip *.py
       - name: Upload zip file artifact
