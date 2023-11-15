@@ -14,5 +14,5 @@ lint:
 test:
 	flake8 src && pytest tests/unit -v
 deploy:
-	#deploy command
+
 all: install format lint test deploy
