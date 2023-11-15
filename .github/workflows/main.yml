@@ -28,7 +28,8 @@ jobs:
         if: steps.cache-venv.outputs.cache-hit != 'true'
 
       - name: Run tests
-        run: .venv/bin/activate &&  pytest tests/unit
+        run: |
+          source venv/bin/activate && pytest tests/unit
       - name: Create archive of dependencies
         run: cd venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
       - name: Add api files to zip
