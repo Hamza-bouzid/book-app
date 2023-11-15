@@ -17,6 +17,7 @@ class BookController:
         book = Book.from_book_request(book_request)
         book_dict = book.to_dynamodb_dict()
         self.db.create_book(book_dict)
+        print(book_dict)
         return ApiResponse(result=True, data=book_dict)
 
     def get_book_by_id(self, book_id: str) -> ApiResponse:
