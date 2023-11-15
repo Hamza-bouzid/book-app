@@ -1,0 +1,40 @@
+name: BookApp
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  CI: # Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Virtual environment
+        uses: actions/setup-python@v2
+        id: cache-venv
+        with:
+          path: venv
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore: ${{ runner.os }}-venv-
+
+      - name: Activate virtual environment
+        run: |
+          python -m venv venv && source venv/bin/activate && pip install -r src/requirements.txt && pip install -r tests/requirements.txt
+        if: steps.cache-venv.outputs.cache-hit != 'true'
+
+      - name: Run tests
+        run: .venv/bin/activate &&  pytest tests/unit
+      - name: Create archive of dependencies
+        run: cd venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
+      - name: Add api files to zip
+        run: cd src && zip -g ../api.zip *.py
+      - name: Upload zip file artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: api
+          path: api.zip
