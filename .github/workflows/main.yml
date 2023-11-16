@@ -27,8 +27,7 @@ jobs:
           source venv/bin/activate && pytest tests/unit
       - name: Create archive of dependencies
         run: |
-           venv/bin/pip install -r src/requirements.txt -r tests/requirements.txt -t .
-           cd ${GITHUB_WORKSPACE} && zip -r9 api.zip .
+          cd ${GITHUB_WORKSPACE}/venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
       - name: Add api files to zip
         run: cd src && zip -g ../api.zip -r .
       - name: Upload zip file artifact
