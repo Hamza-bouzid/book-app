@@ -6,7 +6,6 @@ from fastapi import FastAPI
 from mangum import Mangum
 
 from api.api import router
-from repositories.db import create_tables
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
