@@ -1,4 +1,4 @@
-from src.repositories.S3 import S3
+from repositories.S3 import S3
 
 
 class UploadImageController:

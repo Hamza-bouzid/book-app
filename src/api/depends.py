@@ -2,12 +2,12 @@ import os
 
 from dotenv import load_dotenv
 
-from src.controller.BookController import BookController
-from src.controller.DownloadController import DownloaderController
-from src.controller.UploadImageController import UploadImageController
-from src.repositories.DownloadImage import DownloadImage
-from src.repositories.DynamoDB import DynamoDB
-from src.repositories.S3 import S3
+from controller.BookController import BookController
+from controller.DownloadController import DownloaderController
+from controller.UploadImageController import UploadImageController
+from repositories.DownloadImage import DownloadImage
+from repositories.DynamoDB import DynamoDB
+from repositories.S3 import S3
 
 load_dotenv()
 

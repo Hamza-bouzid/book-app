@@ -1,9 +1,9 @@
-from src.controller import DownloadController
-from src.controller.UploadImageController import UploadImageController
-from src.models.ApiResponse import ApiResponse
-from src.models.Book import Book
-from src.models.BookRequest import BookRequest
-from src.repositories import DynamoDB
+from controller import DownloadController
+from controller.UploadImageController import UploadImageController
+from models.ApiResponse import ApiResponse
+from models.Book import Book
+from models.BookRequest import BookRequest
+from repositories import DynamoDB
 
 
 class BookController:

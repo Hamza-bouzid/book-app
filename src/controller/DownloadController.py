@@ -1,6 +1,6 @@
 import logging
 
-from src.repositories.DownloadImage import DownloadImage
+from repositories.DownloadImage import DownloadImage
 
 
 class DownloaderController:
