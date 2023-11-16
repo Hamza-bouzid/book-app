@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
-from src.api import book, test
-from src.api.auth import basic_auth
+from api import book, test
+from api.auth import basic_auth
 
 router = APIRouter()
 router.include_router(test.router, prefix="/test", tags=["test"])

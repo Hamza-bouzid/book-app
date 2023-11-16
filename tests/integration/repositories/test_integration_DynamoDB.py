@@ -1,6 +1,6 @@
 import pytest
 
-from src.api import depends
+from api import depends
 
 
 class TestIntegrationDynamoDB:

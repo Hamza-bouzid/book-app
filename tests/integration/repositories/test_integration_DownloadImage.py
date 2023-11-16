@@ -1,4 +1,4 @@
-from src.repositories.DownloadImage import DownloadImage
+from repositories.DownloadImage import DownloadImage
 
 
 def test_it_should_download_image():

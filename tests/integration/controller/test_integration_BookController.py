@@ -1,7 +1,7 @@
 import pytest
 
-from src.api import depends
-from src.models.BookRequest import BookRequest
+from api import depends
+from models.BookRequest import BookRequest
 
 
 class TestIntegrationBookController:

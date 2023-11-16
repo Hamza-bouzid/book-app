@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
 
-from src.api import depends
-from src.controller.BookController import BookController
-from src.models.ApiResponse import ApiResponse
-from src.models.BookRequest import BookRequest
+from api import depends
+from controller.BookController import BookController
+from models.ApiResponse import ApiResponse
+from models.BookRequest import BookRequest
 
 router = APIRouter()
 

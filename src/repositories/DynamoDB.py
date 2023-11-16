@@ -2,9 +2,9 @@ import boto3
 from botocore.exceptions import ClientError
 from starlette.responses import JSONResponse
 
-from src.models.ApiResponse import ApiResponse
-from src.models.Book import Book
-from src.repositories.db import dynamodb
+from models.ApiResponse import ApiResponse
+from models.Book import Book
+from repositories.db import dynamodb
 
 
 class DynamoDB:
