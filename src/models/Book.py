@@ -27,15 +27,15 @@ class Book(BaseModel):
             title=book_request.title,
             author=book_request.author,
             is_read=False,
-            created_at=datetime.datetime.now()
+            created_at=datetime.datetime.now(),
         )
 
     @staticmethod
     def from_dynamodb_item(item):
         return Book(
-            id=item['id']['S'],
-            title=item['title']['S'],
-            author=item['author']['S'],
-            is_read=item['is_read']['BOOL'],
-            created_at=datetime.datetime.fromtimestamp(int(item['created_at']['N']))
+            id=item["id"]["S"],
+            title=item["title"]["S"],
+            author=item["author"]["S"],
+            is_read=item["is_read"]["BOOL"],
+            created_at=datetime.datetime.fromtimestamp(int(item["created_at"]["N"])),
         )

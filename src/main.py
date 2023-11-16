@@ -9,7 +9,7 @@ from api.api import router
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-if os.getenv('DEBUG', None) == '1':
+if os.getenv("DEBUG", None) == "1":
     logger.setLevel(logging.DEBUG)
 
 app = FastAPI()
@@ -21,16 +21,14 @@ app_handler = Mangum(app)
 
 # create_tables() #TODO remove this line if is not necessary
 
+
 def lambda_handler(event, context):
     try:
         if event.get("resource"):
             return app_handler(event, context)
     except Exception:
         logger.error(traceback.format_exc())
-        return {
-            'statusCode': 500,
-            'body': 'Internal Server Error'
-        }
+        return {"statusCode": 500, "body": "Internal Server Error"}
 
 
 if __name__ == "__main__":

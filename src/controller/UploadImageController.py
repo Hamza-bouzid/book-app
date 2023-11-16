@@ -5,7 +5,9 @@ class UploadImageController:
     def __init__(self, s3: S3):
         self.s3 = s3
 
-    def upload_image_to_s3(self, image_data: bytes, bucket_name: str, object_key: str) -> bool:
+    def upload_image_to_s3(
+        self, image_data: bytes, bucket_name: str, object_key: str
+    ) -> bool:
         try:
             self.s3.upload_image_to_s3(image_data, bucket_name, object_key)
             return True

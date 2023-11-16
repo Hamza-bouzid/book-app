@@ -1,5 +1,6 @@
-from boto3 import resource
 from os import getenv
+
+from boto3 import resource
 
 dynamodb = resource(
     "dynamodb",
