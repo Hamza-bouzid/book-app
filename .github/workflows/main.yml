@@ -29,7 +29,7 @@ jobs:
         run: |
           cd ${GITHUB_WORKSPACE}/venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
       - name: Add api files to zip
-        run: cd src && zip -g ../api.zip *.py
+        run: cd src && zip -g ../api.zip -r .
       - name: Upload zip file artifact
         uses: actions/upload-artifact@v2
         with:
