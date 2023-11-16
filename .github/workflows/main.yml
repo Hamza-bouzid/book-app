@@ -7,8 +7,12 @@ on:
       - main
 
 jobs:
-  CI: # Continuous Integration
+  CI_CD:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10, 3.11]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,9 +20,9 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: ${{ matrix.python-version }}
 
-      - name: Create virtual environment
+      - name: Install dependencies
         run: |
           python -m venv venv
           source venv/bin/activate
@@ -32,18 +36,21 @@ jobs:
 
       - name: Create archive of dependencies
         run: |
-          cd src && zip -r ../api.zip . && cd ..
+          source venv/bin/activate
+          cd .aws-sam/build/BookApp/
+          zip -r api.zip ./
+          mv api.zip $GITHUB_WORKSPACE
 
       - name: Upload ZIP file artifact
         uses: actions/upload-artifact@v2
         with:
           name: api
-          path: api.zip
+          path: ${{ github.workspace }}/api.zip
 
-  CD: # Continuous Deployment
+  CD:
     runs-on: ubuntu-latest
-    needs: [ CI ]
-    if: github.ref == 'refs/heads/main' # && github.event_name == 'push'
+    needs: CI_CD
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Install AWS CLI
         uses: unfor19/install-aws-cli-action@v1
