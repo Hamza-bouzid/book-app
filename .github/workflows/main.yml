@@ -15,25 +15,19 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Virtual environment
-        uses: actions/setup-python@v2
-        id: cache-venv
-        with:
-          path: venv
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore: ${{ runner.os }}-venv-
-
-      - name: Activate virtual environment
+      - name: Create virtual environment
         run: |
-          python -m venv venv && source venv/bin/activate && pip install -r src/requirements.txt && pip install -r tests/requirements.txt
-        if: steps.cache-venv.outputs.cache-hit != 'true'
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r src/requirements.txt
+          pip install -r tests/requirements.txt
 
       - name: Run tests
         run: |
           source venv/bin/activate && pytest tests/unit
       - name: Create archive of dependencies
         run: |
-          cd venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
+          cd ${GITHUB_WORKSPACE}/venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
       - name: Add api files to zip
         run: cd src && zip -g ../api.zip *.py
       - name: Upload zip file artifact
