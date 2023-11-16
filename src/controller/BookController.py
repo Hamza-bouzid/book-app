@@ -7,8 +7,12 @@ from src.repositories import DynamoDB
 
 
 class BookController:
-    def __init__(self, upload_image_controller: UploadImageController, download_controller: DownloadController,
-                 db: DynamoDB):
+    def __init__(
+        self,
+        upload_image_controller: UploadImageController,
+        download_controller: DownloadController,
+        db: DynamoDB,
+    ):
         self.upload_image_controller = upload_image_controller
         self.download_controller = download_controller
         self.db = db

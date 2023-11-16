@@ -13,6 +13,7 @@ lint:
 	flake8 src/*.py tests/*.py
 test:
 	flake8 src && pytest tests/unit -v
-deploy:
+pre-commit:
+	isort . && flake8 src && pytest tests/unit -v
 
-all: install format lint test deploy
+all: install format lint test

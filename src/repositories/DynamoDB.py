@@ -1,17 +1,17 @@
 import boto3
+from botocore.exceptions import ClientError
 from starlette.responses import JSONResponse
 
 from src.models.ApiResponse import ApiResponse
 from src.models.Book import Book
 from src.repositories.db import dynamodb
-from botocore.exceptions import ClientError
 
 
 class DynamoDB:
     def __init__(self, book_table: str):
         self.book_table = book_table
         self.table = dynamodb.Table(book_table)
-        self.db = boto3.client('dynamodb')
+        self.db = boto3.client("dynamodb")
 
     def create_book(self, book: dict):
         self.db.put_item(TableName=self.book_table, Item=book)
@@ -19,18 +19,17 @@ class DynamoDB:
 
     def get_book(self, book_id: str) -> ApiResponse:
         response = self.db.get_item(
-            TableName=self.book_table,
-            Key={
-                'id': {'S': book_id}
-            }
+            TableName=self.book_table, Key={"id": {"S": book_id}}
         )
 
-        if 'Item' not in response:
+        if "Item" not in response:
             raise Exception("Book not found")
 
-        return Book.from_dynamodb_item(response['Item'])
+        return Book.from_dynamodb_item(response["Item"])
 
-    def get_books(self, ):
+    def get_books(
+        self,
+    ):
         books = self.db.scan(TableName=self.book_table)
         if "Items" not in books:
             raise Exception("No books found")
@@ -38,7 +37,6 @@ class DynamoDB:
 
     def update_book(self, book_id: str, book: dict) -> JSONResponse:
         try:
-
             update_expression = "set "
             expression_attribute_values = {}
 

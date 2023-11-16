@@ -20,3 +20,4 @@ urllib3==1.26.16
 uvicorn==0.23.2
 requests
 mangum==0.17.0
+isort

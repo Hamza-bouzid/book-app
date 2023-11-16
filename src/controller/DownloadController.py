@@ -12,4 +12,8 @@ class DownloaderController:
             image = self.download_image.download_image(url)
             return image
         except Exception as e:
-            logging.error('DownloaderController - download_image - Error downloading image\n{}'.format(e))
+            logging.error(
+                "DownloaderController - download_image - Error downloading image\n{}".format(
+                    e
+                )
+            )

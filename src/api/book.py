@@ -10,7 +10,8 @@ router = APIRouter()
 
 @router.post("/create")
 async def create(
-    book: BookRequest, book_controller: BookController = Depends(depends.get_book_controller)
+    book: BookRequest,
+    book_controller: BookController = Depends(depends.get_book_controller),
 ) -> ApiResponse:
     return book_controller.create_book_from_dict(book)
 
