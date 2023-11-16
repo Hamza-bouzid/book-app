@@ -26,9 +26,9 @@ def lambda_handler(event, context):
     try:
         if event.get("resource"):
             return app_handler(event, context)
-    except Exception:
+    except Exception as e:
         logger.error(traceback.format_exc())
-        return {"statusCode": 500, "body": "Internal Server Error"}
+        return e
 
 
 if __name__ == "__main__":

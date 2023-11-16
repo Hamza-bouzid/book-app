@@ -3,6 +3,6 @@ from fastapi import APIRouter
 router = APIRouter()
 
 
-@router.get("/test", tags=["test"])
+@router.get("/")
 async def root():
     return {"message": "Hello World"}
