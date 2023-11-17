@@ -4,6 +4,8 @@ on:
     branches:
       - develop
       - main
+  pull_request:
+    types: [ opened, reopened ]
 
 jobs:
   CI: # Continuous Integration
@@ -25,6 +27,12 @@ jobs:
       - name: Run tests
         run: |
           source venv/bin/activate && pytest tests/unit
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Create archive of dependencies
         run: |
           cd ${GITHUB_WORKSPACE}/venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
