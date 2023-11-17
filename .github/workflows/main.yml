@@ -27,11 +27,6 @@ jobs:
       - name: Run tests
         run: |
           source venv/bin/activate && pytest tests/unit
-      - name: Sonar Cloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Create archive of dependencies
         run: |
           cd ${GITHUB_WORKSPACE}/venv/lib/python3.11/site-packages && zip -r9 ${OLDPWD}/api.zip .
@@ -42,6 +37,16 @@ jobs:
         with:
           name: api
           path: api.zip
+
+  SonarCloud:
+    runs-on: ubuntu-latest
+    needs: [ CI ]  # This ensures that CI is completed before SonarCloud starts
+    steps:
+      - name: Sonar Cloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   CD: # Continuous Deployment
     runs-on: ubuntu-latest
