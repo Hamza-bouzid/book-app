@@ -49,3 +49,11 @@ async def update(
         book_controller: BookController = Depends(depends.get_book_controller),
 ) -> ApiResponse:
     return book_controller.update_book_by_id(book_id, book)
+
+
+@router.get("/search/{search_term}")
+async def search(
+        search_term: str,
+        book_controller: BookController = Depends(depends.get_book_controller),
+) -> ApiResponse:
+    return book_controller.search_books(search_term)

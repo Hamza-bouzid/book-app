@@ -12,10 +12,8 @@ load_dotenv()
 http_basic = HTTPBasic()
 
 
-def basic_auth(
-    credentials: HTTPBasicCredentials = Depends(http_basic),
-    authorization: Optional[str] = Header(None),
-):
+def basic_auth(credentials: HTTPBasicCredentials = Depends(http_basic),
+               authorization: Optional[str] = Header(None)):
     if not authorization:
         raise_unauthorized()
     correct_username = secrets.compare_digest(
@@ -30,7 +28,7 @@ def basic_auth(
 
 
 def raise_unauthorized(
-    detail: str = "Not authorized", headers: dict = None
+        detail: str = "Not authorized", headers: dict = None
 ) -> HTTPException:
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED, detail=detail, headers=headers

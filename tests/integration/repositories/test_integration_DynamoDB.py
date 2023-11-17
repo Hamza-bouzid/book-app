@@ -19,3 +19,9 @@ class TestIntegrationDynamoDB:
         result = dynamodb.get_books()
 
         assert len(result) > 0
+
+    def test_it_should_search_a_book_by_title(self, dynamodb):
+        search_term = 'Hamza'
+        result = dynamodb.search_books(search_term)
+
+        assert len(result) > 0

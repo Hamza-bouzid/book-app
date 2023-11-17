@@ -28,7 +28,7 @@ class DynamoDB:
         return Book.from_dynamodb_item(response["Item"])
 
     def get_books(
-        self,
+            self,
     ):
         books = self.db.scan(TableName=self.book_table)
         if "Items" not in books:
@@ -68,3 +68,19 @@ class DynamoDB:
             return JSONResponse(
                 status_code=500, content={"message": e.response["Error"]["Message"]}
             )
+
+    def search_books(self, search_term: str):
+        search_term_lower = search_term.lower()
+
+        books = self.db.scan(TableName=self.book_table)
+
+        if "Items" not in books:
+            raise Exception(f"No books found with {search_term} term")
+
+        filtered_books = [
+            Book.from_dynamodb_item(item) for item in books["Items"]
+            if "title" in item and "S" in item["title"] and search_term_lower in item["title"]["S"].lower() or
+               "author" in item and "S" in item["author"] and search_term_lower in item["author"]["S"].lower()
+        ]
+
+        return filtered_books

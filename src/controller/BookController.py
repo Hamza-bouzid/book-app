@@ -8,10 +8,10 @@ from repositories import DynamoDB
 
 class BookController:
     def __init__(
-        self,
-        upload_image_controller: UploadImageController,
-        download_controller: DownloadController,
-        db: DynamoDB,
+            self,
+            upload_image_controller: UploadImageController,
+            download_controller: DownloadController,
+            db: DynamoDB,
     ):
         self.upload_image_controller = upload_image_controller
         self.download_controller = download_controller
@@ -40,3 +40,7 @@ class BookController:
     def update_book_by_id(self, book_id: str, book_dict: dict) -> ApiResponse:
         book = self.db.update_book(book_id, book_dict)
         return ApiResponse(result=True, data=book)
+
+    def search_books(self, search_term: str) -> ApiResponse:
+        books = self.db.search_books(search_term)
+        return ApiResponse(result=True, data=books)
