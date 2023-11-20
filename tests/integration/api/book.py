@@ -1,5 +1,6 @@
 import base64
 import json
+import os
 
 import pytest
 
@@ -9,8 +10,8 @@ from src import main
 class TestIntegrationBook:
     @pytest.fixture
     def basic_auth(self):
-        username = 'hamza'
-        password = 'bouzid'
+        username = os.getenv('BASIC_AUTH_USERNAME')
+        password = os.getenv('BASIC_AUTH_PASSWORD')
         token = base64.b64encode(f"{username}:{password}".encode('utf-8')).decode("ascii")
         return f'Basic {token}'
 
